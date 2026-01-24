@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Image from "next/image";
 export default function ProductCatalog() {
     return (
         <div className="product-catalog px-15 py-8 mt-8">
@@ -12,7 +12,7 @@ export default function ProductCatalog() {
                 </div>
                 <div className="secound-info flex justify-end items-center xl:w-1/1">
                     <Link href="/shop" className="text-lg font-semibold">
-                        View All Products
+                        View All Products <span className="text-black-500">→</span>
                     </Link>
                 </div>
             </div>
@@ -20,9 +20,13 @@ export default function ProductCatalog() {
                 {/* Product items will be rendered here */}
                 <div className="product-item">
                     <div className="img">
-                        <img src="/img/home/products/1.png" width={500} alt="Organic Chocolate Cake Slice" />
+                        <Image src="/img/home/products/1.png" width={500} height={500} alt="Organic Chocolate Cake Slice" />
                     </div>
-                    <h3 className="text-lg font-semibold mt-4">Organic Chocolate Cake Slice</h3>
+                    <div className="star mt-4 flex items-center">
+                        <Image src="/icons/star.svg" alt="Star" width={20} height={20} />
+                        <span className="ml-2 text-sm font-medium">4.9 (120 Reviews)</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mt-1">Organic Chocolate Cake Slice</h3>
                     <p className="text-sm">
                         A rich and decadent chocolate cake made with organic ingredients.
                     </p>
@@ -30,9 +34,13 @@ export default function ProductCatalog() {
                 </div>
                 <div className="product-item">
                     <div className="img">
-                        <img src="/img/home/products/2.png" width={500} alt="Almond Milk with Chia & Blueberries" />
+                        <Image src="/img/home/products/2.png" width={500} height={500} alt="Almond Milk with Chia & Blueberries" />
                     </div>
-                    <h3 className="text-lg font-semibold mt-4">Almond Milk with Chia & Blueberries</h3>
+                    <div className="star mt-4 flex items-center">
+                        <Image src="/icons/star.svg" alt="Star" width={20} height={20} />
+                        <span className="ml-2 text-sm font-medium">4.8 (100 Reviews)</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mt-1">Almond Milk with Chia & Blueberries</h3>
                     <p className="text-sm">
                         A creamy almond milk infused with chia seeds and blueberries.
                     </p>
@@ -40,9 +48,13 @@ export default function ProductCatalog() {
                 </div>
                 <div className="product-item">
                     <div className="img">
-                        <img src="/img/home/products/3.png" width={500} alt="Fresh Organic Strawberries" />
+                        <Image src="/img/home/products/3.png" width={500} height={500} alt="Fresh Organic Strawberries" />
                     </div>
-                    <h3 className="text-lg font-semibold mt-4">Fresh Organic Strawberries</h3>
+                    <div className="star mt-4 flex items-center">
+                        <Image src="/icons/star.svg" alt="Star" width={20} height={20} />
+                        <span className="ml-2 text-sm font-medium">4.7 (80 Reviews)</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mt-1">Fresh Organic Strawberries</h3>
                     <p className="text-sm">
                         Juicy and sweet organic strawberries, perfect for snacking or desserts.
                     </p>
@@ -50,9 +62,13 @@ export default function ProductCatalog() {
                 </div>
                 <div className="product-item">
                     <div className="img">
-                        <img src="/img/home/products/4.png" width={500} alt="Buttery Croissants with Almonds" />
+                        <Image src="/img/home/products/4.png" width={500} height={500} alt="Buttery Croissants with Almonds" />
                     </div>
-                    <h3 className="text-lg font-semibold mt-4">Buttery Croissants with Almonds</h3>
+                    <div className="star mt-4 flex items-center">
+                        <Image src="/icons/star.svg" alt="Star" width={20} height={20} />
+                        <span className="ml-2 text-sm font-medium">4.6 (60 Reviews)</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mt-1">Buttery Croissants with Almonds</h3>
                     <p className="text-sm">
                         Flaky and buttery croissants filled with almond paste and topped with sliced almonds.
                     </p>
