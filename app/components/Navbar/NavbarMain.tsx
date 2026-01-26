@@ -95,7 +95,7 @@ export default function NavbarMain() {
           </Link>
         </div>
 
-        {/* Search Bar - Desktop Only */}
+        {/* Search Bar - Desktop version */}
         <div className="search hidden md:block relative w-full">
           <button
             type="button"
