@@ -95,7 +95,7 @@ export default function NavbarMain() {
           </Link>
         </div>
 
-        {/* Search Bar - Desktop version */}
+        {/* Search Bar - Desktop */}
         <div className="search hidden md:block relative w-full">
           <button
             type="button"
@@ -180,7 +180,7 @@ export default function NavbarMain() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/30 z-40 md:hidden backdrop-blur-sm"
+          className="fixed inset-0 z-40 md:hidden "
           onClick={closeMenu}
         />
       )}
@@ -205,17 +205,6 @@ export default function NavbarMain() {
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        {/* Close Button */}
-        <button
-          onClick={closeMenu}
-          className="absolute top-6 right-6 p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600 hover:text-black"
-          aria-label="Close menu"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
         <div className="pt-20 px-6 pb-6">
           {/* Search on Mobile */}
           <div className="mb-8">
