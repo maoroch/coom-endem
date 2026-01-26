@@ -27,7 +27,7 @@ export default function InstagramFollow() {
     <div className="px-4 sm:px-6 lg:px-15 py-12 sm:py-16 lg:py-24 mt-8 sm:mt-12 lg:mt-16">
       {/* Header Section */}
       <div className="text-center mb-5 sm:mb-8">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
           Follow us on Instagram
         </h2>
         <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">

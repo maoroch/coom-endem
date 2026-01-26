@@ -53,7 +53,7 @@ export default function Reviews() {
         <div className="flex flex-col gap-6">
           {/* Title & Description Card */}
           <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 sm:p-10 rounded-2xl border border-blue-100">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-gray-900">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight font-bold leading-tight mb-4 text-gray-900">
               Reviews
             </h2>
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
@@ -121,9 +121,15 @@ export default function Reviews() {
             </div>
 
             {/* Quote Icon */}
-            <svg className="w-10 h-10 text-gray-200 mb-6" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M3.692 12c0-1.554.889-2.963 2.371-2.963 1.602 0 2.541 1.027 2.541 2.742 0 2.058-.656 3.854-2.715 3.854-1.02 0-1.554-.381-1.887-.962l1.23-1.738c.24.545.748 1.088 1.564 1.088.891 0 1.556-.743 1.811-1.943H5.661c-.068 0-.123-.058-.123-.129V12zm10 0c0-1.554.889-2.963 2.371-2.963 1.602 0 2.541 1.027 2.541 2.742 0 2.058-.656 3.854-2.715 3.854-1.02 0-1.553-.381-1.887-.962l1.23-1.738c.24.545.748 1.088 1.564 1.088.891 0 1.556-.743 1.811-1.943h-1.915c-.068 0-.123-.058-.123-.129V12z" />
-            </svg>
+            <div className="w-10 h-10 text-gray-200 mb-6">
+              <Image
+                src="/icons/quote.svg"
+                alt="Quote"
+                width={40}
+                height={40}
+                className="w-10 h-10 gray-200 "
+              />
+            </div>
 
             {/* Review Text */}
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8 flex-1 font-light">
