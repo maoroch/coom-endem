@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Organic Chocolate Cake Slice",
+    "description": "A rich and decadent chocolate cake made with organic ingredients.",
+    "fullDescription": "Indulge in our signature Organic Chocolate Cake — a masterpiece of rich, velvety layers crafted from 70% dark cacao sourced from sustainable farms. Each slice is moist, dense, and finished with a silky ganache glaze. Free from artificial preservatives, this cake is as wholesome as it is indulgent. Perfect for celebrations or a quiet moment of self-care.",
+    "price": 4.99,
+    "rating": 4.9,
+    "reviews": 120,
+    "image": "/img/home/products/1.png",
+    "category": "Bakery",
+    "tags": ["organic", "chocolate", "gluten-free option"]
+  },
+  {
+    "id": 2,
+    "name": "Almond Milk with Chia & Blueberries",
+    "description": "A creamy almond milk infused with chia seeds and blueberries.",
+    "fullDescription": "Start your morning right with our cold-pressed Almond Milk blend, enriched with omega-rich chia seeds and antioxidant-packed wild blueberries. Lightly sweetened with organic agave, this drink is dairy-free, vegan, and packed with nutrients. Shake well and enjoy chilled for the ultimate refreshing boost.",
+    "price": 5.99,
+    "rating": 4.8,
+    "reviews": 100,
+    "image": "/img/home/products/2.png",
+    "category": "Drinks",
+    "tags": ["vegan", "dairy-free", "superfood"]
+  },
+  {
+    "id": 3,
+    "name": "Fresh Organic Strawberries",
+    "description": "Juicy and sweet organic strawberries, perfect for snacking or desserts.",
+    "fullDescription": "Hand-picked at peak ripeness from certified organic farms, our strawberries burst with natural sweetness and vibrant flavor. No pesticides, no additives — just pure, sun-kissed fruit. Great for smoothies, desserts, salads, or simply enjoyed fresh. Delivered same-day to preserve maximum freshness.",
+    "price": 6.99,
+    "rating": 4.7,
+    "reviews": 80,
+    "image": "/img/home/products/3.png",
+    "category": "Fruits",
+    "tags": ["organic", "fresh", "seasonal"]
+  },
+  {
+    "id": 4,
+    "name": "Buttery Croissants with Almonds",
+    "description": "Flaky and buttery croissants filled with almond paste and topped with sliced almonds.",
+    "fullDescription": "Baked fresh every morning, our Almond Croissants are a true French-inspired delight. Layers of hand-folded, butter-laminated dough encase a generous filling of house-made frangipane — sweet almond cream with a nutty depth. Finished with toasted almond slices and a dusting of powdered sugar. Best enjoyed warm with a cup of coffee.",
+    "price": 5.49,
+    "rating": 4.6,
+    "reviews": 60,
+    "image": "/img/home/products/4.png",
+    "category": "Bakery",
+    "tags": ["fresh-baked", "nuts", "vegetarian"]
+  }
+]

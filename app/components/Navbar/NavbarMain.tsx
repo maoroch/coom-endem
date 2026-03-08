@@ -24,17 +24,15 @@ export default function NavbarMain() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "Products" },
+    { href: "/shop", label: "Products" },
     { href: "/categories", label: "Categories" },
-    { href: "/sales", label: "Sales" },
     { href: "/discounts", label: "Discounts" },
-    { href: "/blog", label: "Blog" },
   ];
 
   const userLinks = [
-    { href: "/favourite", label: "Favourite", icon: "/icons/favourite.svg" },
+    { href: "/favourites", label: "Favourite", icon: "/icons/favourite.svg" },
     { href: "/orders", label: "Orders", icon: "/icons/orders.svg" },
-    { href: "/signin", label: "Sign in", icon: "/icons/auth.svg" },
+    { href: "/login", label: "Sign in", icon: "/icons/auth.svg" },
   ];
 
   // Handle scroll
@@ -125,12 +123,14 @@ export default function NavbarMain() {
           <ul className="flex gap-5 items-center">
             {userLinks.map((link) => (
               <li key={link.href} className="grid w-15 place-items-center text-center cursor-pointer group">
-                <div className="p-2 rounded-lg group-hover:bg-gray-100 transition-colors">
+                <Link href={link.href}>
+                <div className="p-2 rounded-lg group-hover:bg-gray-100 flex items-center justify-center transition-colors">
                   <img src={link.icon} alt={link.label} width={20} height={20} />
                 </div>
-                <Link href={link.href} className="text-xs font-medium hover:text-black transition-colors">
+                 <span className="text-xs font-medium hover:text-black transition-colors">
                   {link.label}
-                </Link>
+                </span>
+              </Link>
               </li>
             ))}
           </ul>
