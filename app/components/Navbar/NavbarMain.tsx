@@ -27,6 +27,7 @@ export default function NavbarMain() {
     { href: "/shop", label: "Products" },
     { href: "/categories", label: "Categories" },
     { href: "/discounts", label: "Discounts" },
+    { href: "/blog", label: "Blog" },
   ];
 
   const userLinks = [
