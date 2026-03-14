@@ -22,7 +22,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col lg:flex-row mt-20">
+    <div className="min-h-screen bg-white flex flex-col lg:flex-row ">
 
       {/* Left panel — decorative */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-end p-16"

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/context/Authcontext';
-
 export default function RegisterPage() {
   const router = useRouter();
   const { register, error } = useAuth();

@@ -11,11 +11,15 @@ export const metadata: Metadata = {
   description: "Discover fresh, natural and certified organic products for your health. Coom Endem offers eco-friendly solutions that care for your body and the planet.",
 };
 
-export default function RootLayout({
+export default function RootLayout( 
+  {
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>
+)
+
+{
   return (
     <html lang="en">
       <body >

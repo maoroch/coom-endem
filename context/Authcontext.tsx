@@ -2,10 +2,6 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'http://coom-endem-server.local';
-const KEY = process.env.NEXT_PUBLIC_WC_CONSUMER_KEY ?? '';
-const SEC = process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET ?? '';
-
 export interface WCUser {
   id: number;
   email: string;
@@ -32,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Restore session from sessionStorage
+  // Восстановить сессию из sessionStorage
   useEffect(() => {
     try {
       const t = sessionStorage.getItem('wc_token');
@@ -42,63 +38,70 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
+  const saveSession = (newToken: string, newUser: WCUser) => {
+    setToken(newToken);
+    setUser(newUser);
+    try {
+      sessionStorage.setItem('wc_token', newToken);
+      sessionStorage.setItem('wc_user', JSON.stringify(newUser));
+    } catch {}
+  };
+
   const login = async (email: string, password: string): Promise<boolean> => {
     setError('');
     try {
-      // Requires: JWT Authentication for WP REST API plugin
-      // https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/
-      const res = await fetch(`${WP}/wp-json/jwt-auth/v1/token`, {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: email, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.message ?? 'Invalid email or password'); return false; }
-
-      const newToken: string = data.token;
-
-      // Fetch WP user profile
-      const me = await fetch(`${WP}/wp-json/wp/v2/users/me`, {
-        headers: { Authorization: `Bearer ${newToken}` },
-      }).then(r => r.json());
-
-      const newUser: WCUser = {
-        id:          me.id,
-        email:       me.email ?? email,
-        firstName:   me.first_name ?? '',
-        lastName:    me.last_name ?? '',
-        displayName: me.name ?? email,
-      };
-
-      setToken(newToken);
-      setUser(newUser);
-      sessionStorage.setItem('wc_token', newToken);
-      sessionStorage.setItem('wc_user', JSON.stringify(newUser));
+      if (!res.ok) {
+        setError(data.error?.replace(/<[^>]*>/g, '') ?? 'Invalid email or password');
+        return false;
+      }
+      saveSession(data.token, data.user);
       return true;
-    } catch { setError('Connection error. Please try again.'); return false; }
+    } catch {
+      setError('Connection error. Please try again.');
+      return false;
+    }
   };
 
-  const register = async (firstName: string, lastName: string, email: string, password: string): Promise<boolean> => {
+  const register = async (
+    firstName: string, lastName: string, email: string, password: string
+  ): Promise<boolean> => {
     setError('');
     try {
-      const url = new URL(`${WP}/wp-json/wc/v3/customers`);
-      url.searchParams.set('consumer_key', KEY);
-      url.searchParams.set('consumer_secret', SEC);
-      const res = await fetch(url.toString(), {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ first_name: firstName, last_name: lastName, email, password, username: email }),
+        body: JSON.stringify({ firstName, lastName, email, password }),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.message ?? 'Registration failed'); return false; }
-      // Auto-login after registration
-      return await login(email, password);
-    } catch { setError('Connection error. Please try again.'); return false; }
+      if (res.status === 206) {
+        setError('Account created! Please sign in.');
+        return false;
+      }
+      if (!res.ok) {
+        setError(data.error?.replace(/<[^>]*>/g, '') ?? 'Registration failed');
+        return false;
+      }
+      saveSession(data.token, data.user);
+      return true;
+    } catch {
+      setError('Connection error. Please try again.');
+      return false;
+    }
   };
 
   const logout = () => {
-    setUser(null); setToken(null);
-    try { sessionStorage.removeItem('wc_token'); sessionStorage.removeItem('wc_user'); } catch {}
+    setUser(null);
+    setToken(null);
+    try {
+      sessionStorage.removeItem('wc_token');
+      sessionStorage.removeItem('wc_user');
+    } catch {}
   };
 
   return (

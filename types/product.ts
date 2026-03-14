@@ -21,3 +21,11 @@ export interface FilterState {
   organic: boolean;
   rating: number | null;
 }
+
+export interface SearchResult {
+  id: number;
+  name: string;
+  price: string;
+  image: string | null;
+  slug: string;
+}
