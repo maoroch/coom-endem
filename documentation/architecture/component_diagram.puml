@@ -1,0 +1,91 @@
+@startuml Headless E-Commerce Frontend Components
+
+!theme plain
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+
+package "app/ (Next.js App Router)" {
+
+  package "Pages (Routes)" {
+    component "page.tsx\n(Home — SSG)" as homePage
+    component "shop/page.tsx\n(SSR — product grid,\nfilter, pagination)" as shopPage
+    component "shop/[slug]/page.tsx\n(ISR — product detail)" as productPage
+    component "categories/page.tsx\n(SSR)" as catPage
+    component "categories/[slug]/page.tsx\n(SSR)" as catSlugPage
+    component "search/page.tsx\n(SSR)" as searchPage
+    component "cart/page.tsx\n(Client)" as cartPage
+    component "orders/page.tsx\n(Client + Auth)" as ordersPage
+    component "blog/page.tsx\n(SSG)" as blogPage
+    component "blog/[slug]/page.tsx\n(SSG)" as blogSlugPage
+    component "discounts/page.tsx\n(SSR)" as discountsPage
+    component "favourites/page.tsx\n(Client)" as favPage
+    component "login/page.tsx\n(Client)" as loginPage
+    component "register/page.tsx\n(Client)" as registerPage
+  }
+
+  package "API Routes (BFF)" {
+    component "api/auth/login/route.ts\n(JWT token + user profile)" as loginApi
+    component "api/auth/register/route.ts\n(WC customer + JWT)" as registerApi
+    component "api/search/route.ts\n(WC product search)" as searchApi
+  }
+}
+
+package "components/" {
+  component "Navbar/NavbarMain.tsx\n(cart count, auth state)" as navbar
+  component "Navbar/Usermenu.tsx\n(login/logout, profile)" as usermenu
+  component "Footer/Footer.tsx" as footer
+  component "AddToCartButton.tsx\n(CartContext)" as addToCart
+  component "FavouriteButton.tsx\n(FavouritesContext)" as favButton
+  component "Home.tsx" as homeComp
+  component "pages/home/*\n(Banner, Catalog,\nProductCatalog, Blog,\nReviews, Instagram,\nLinkingWords)" as homeBlocks
+}
+
+package "context/ (Client State)" {
+  component "AuthContext.tsx\n(user, token, login,\nlogout — localStorage)" as authCtx
+  component "CartContext.tsx\n(items, addToCart,\nremoveFromCart,\ntotalPrice — sessionStorage)" as cartCtx
+  component "FavouritesContext.tsx\n(favourites — localStorage)" as favCtx
+}
+
+package "lib/" {
+  component "wordpress.ts\n(WP REST + WC REST\nfetch helpers,\ntype definitions,\nproduct/post helpers)" as wpLib
+}
+
+package "types/" {
+  component "product.ts\n(WCProduct interface)" as productType
+  component "blog.ts\n(WPPost interface)" as blogType
+}
+
+package "scripts/ (CLI tools)" {
+  component "import-products-to-wc.ts\n(JSON → WooCommerce batch import)" as importScript
+  component "import-blog-to-wp.ts\n(Import blog posts to WordPress)" as blogScript
+}
+
+' --- Page → Lib ---
+shopPage --> wpLib : getProducts()\ngetCategories()
+productPage --> wpLib : getProductBySlug()
+homePage --> wpLib : getProducts()\ngetPosts()
+blogPage --> wpLib : getPosts()
+blogSlugPage --> wpLib : getPostBySlug()
+discountsPage --> wpLib : getSaleProducts()\ngetCoupons()
+catSlugPage --> wpLib : getProducts({category})
+searchPage --> searchApi : fetch /api/search
+
+' --- Pages → Context ---
+cartPage --> cartCtx : useCart()
+favPage --> favCtx : useFavourites()
+ordersPage --> authCtx : useAuth()
+loginPage --> authCtx : login()
+registerPage --> authCtx : login()
+
+' --- Components → Context ---
+navbar --> cartCtx : totalItems
+usermenu --> authCtx : user, logout
+addToCart --> cartCtx : addToCart()
+favButton --> favCtx : toggleFavourite()
+
+' --- API Routes → WP/WC ---
+loginApi ..> wpLib : Direct WP fetch
+registerApi ..> wpLib : Direct WC fetch
+searchApi ..> wpLib : getProducts({search})
+
+@enduml

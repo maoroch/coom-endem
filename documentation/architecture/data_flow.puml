@@ -1,0 +1,76 @@
+@startuml Headless E-Commerce Data Flow
+
+!theme plain
+skinparam backgroundColor white
+skinparam sequenceMessageAlign center
+
+actor "Customer" as user
+participant "Next.js\nFrontend" as next
+participant "Next.js\nAPI Routes\n(BFF)" as bff
+participant "WooCommerce\nREST API" as wc
+participant "WordPress\nREST API" as wp
+participant "JWT Auth\nPlugin" as jwt
+database "MySQL\n(WP DB)" as db
+
+== Browse Products (SSR) ==
+user -> next : GET /shop
+next -> wc : GET /products?per_page=20&status=publish
+next -> wc : GET /products/categories
+wc -> db : SQL Query
+db --> wc : Products + Categories
+wc --> next : JSON Response
+next --> user : HTML (Server Rendered)
+
+== Product Detail (ISR) ==
+user -> next : GET /shop/[slug]
+next -> wc : GET /products?slug=product-slug
+wc -> db : SQL Query
+db --> wc : Product data
+wc --> next : WCProduct JSON
+next --> user : HTML (revalidate: 3600s)
+
+== Authentication — Login ==
+user -> next : POST /api/auth/login\n{email, password}
+next -> bff : Route handler
+bff -> jwt : POST /jwt-auth/v1/token\n{username, password}
+jwt -> db : Verify credentials
+db --> jwt : User valid
+jwt --> bff : {token: "eyJ..."}
+bff -> wp : GET /wp/v2/users/me\nAuthorization: Bearer token
+wp --> bff : {id, email, name, ...}
+bff --> user : {token, user profile}\n+ Set cookie
+
+== Registration ==
+user -> next : POST /api/auth/register\n{firstName, lastName, email, password}
+next -> bff : Route handler
+bff -> wc : POST /wc/v3/customers\n{first_name, last_name, email, password}
+wc -> db : Create customer
+db --> wc : Customer created
+wc --> bff : Customer data
+bff -> jwt : POST /jwt-auth/v1/token\n(auto-login)
+jwt --> bff : {token: "eyJ..."}
+bff --> user : {token, user profile}
+
+== Search ==
+user -> next : GET /search?q=organic
+next -> bff : GET /api/search?q=organic
+bff -> wc : GET /products?search=organic&status=publish
+wc -> db : Full-text search
+db --> wc : Matching products
+wc --> bff : WCProduct[]
+bff --> user : Search results (SSR)
+
+== Blog (SSG) ==
+user -> next : GET /blog
+next -> wp : GET /wp/v2/posts?_embed&per_page=20
+wp -> db : Query posts
+db --> wp : Posts + media + terms
+wp --> next : WPPost[]
+next --> user : HTML (revalidate: 3600s)
+
+== Cart (Client-side) ==
+user -> next : Add to Cart
+next -> next : CartContext.addToCart()\nsessionStorage.setItem('cart', ...)
+next --> user : Cart updated (no API call)
+
+@enduml

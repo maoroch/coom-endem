@@ -145,63 +145,65 @@ export default function Catalog() {
 
       {/* CTA Button */}
       <div className="flex justify-center">
-        <button className="
-          group
-          w-full
-          sm:w-auto
-          sm:min-w-80
-          border-1
-          border-black
-          rounded-full
-          flex
-          items-center
-          justify-between
-          pl-6
-          sm:pl-8
-          pr-2
-          py-2
-          sm:py-3
-          transition-all
-          duration-300
-          ease-out
-          hover:bg-black
-          hover:text-white
-          hover:shadow-xl
-          active:scale-95
-        ">
-          <span className="text-sm sm:text-base font-bold tracking-wide">
-            See Products
-          </span>
-
-          <div className="
-            w-10
-            sm:w-12
-            h-10
-            sm:h-12
+        <Link href="/shop">
+          <button className="
+            group
+            w-full
+            sm:w-auto
+            sm:min-w-80
+            border-1
+            border-black
             rounded-full
-            bg-black
             flex
             items-center
-            justify-center
-            group-hover:bg-white
+            justify-between
+            pl-6
+            sm:pl-8
+            pr-2
+            py-2
+            sm:py-3
             transition-all
             duration-300
-            group-hover:scale-110
-            flex-shrink-0
+            ease-out
+            hover:bg-black
+            hover:text-white
+            hover:shadow-xl
+            active:scale-95
           ">
-            <ArrowRight
-              className="
-                text-white
-                group-hover:text-black
-                transition-all
-                duration-300
-                group-hover:translate-x-1
-              "
-              size={20}
-              strokeWidth={2.5}
-            />
-          </div>
-        </button>
+            <span className="text-sm sm:text-base font-bold tracking-wide">
+              See Products
+            </span>
+
+            <div className="
+              w-10
+              sm:w-12
+              h-10
+              sm:h-12
+              rounded-full
+              bg-black
+              flex
+              items-center
+              justify-center
+              group-hover:bg-white
+              transition-all
+              duration-300
+              group-hover:scale-110
+              flex-shrink-0
+            ">
+              <ArrowRight
+          className="
+            text-white
+            group-hover:text-black
+            transition-all
+            duration-300
+            group-hover:translate-x-1
+          "
+          size={20}
+          strokeWidth={2.5}
+              />
+            </div>
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ export default function Banner() {
                     active:scale-95
                     hover:pr-4
                 ">
-                    <Link href="/products" className="flex items-center gap-3">
+                    <Link href="/shop" className="flex items-center gap-3">
                         <b>See products</b>
                         <ArrowRight
                             className="

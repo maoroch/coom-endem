@@ -1,0 +1,27 @@
+@startuml Headless E-Commerce System Context
+
+!theme plain
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+
+actor "Visitor / Customer" as user
+actor "Store Admin" as admin
+
+package "Headless E-Commerce Platform" {
+  component "Next.js Storefront\n(Frontend)" as frontend
+  component "WordPress + WooCommerce\n(Headless Backend)" as backend
+}
+
+cloud "Vercel\n(Frontend Hosting)" as vercel
+cloud "WordPress Hosting\n(WP Engine / VPS)" as wphost
+cloud "Cloudinary\n(Image CDN)" as cloudinary
+
+user --> frontend : Browse, Search,\nCart, Checkout,\nAuth
+admin --> backend : Manage Products,\nOrders, Blog,\nCoupons
+
+frontend --> backend : WooCommerce REST API\n+ WordPress REST API\n(JWT Auth)
+frontend --> cloudinary : Product images\n(optimized delivery)
+frontend ..> vercel : Deployed on
+backend ..> wphost : Hosted on
+
+@enduml

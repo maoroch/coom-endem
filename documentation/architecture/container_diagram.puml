@@ -1,0 +1,74 @@
+@startuml Headless E-Commerce Container Diagram
+
+!theme plain
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+
+actor "Customer" as user
+actor "Admin" as admin
+
+package "Frontend (Next.js 16 · React 19)" {
+  component "Home Page\n(SSG — catalog, banner,\nblog preview, reviews)" as home
+  component "Shop / Categories\n(SSR — product listing,\nfiltering, search)" as shop
+  component "Product Detail\n(SSG + ISR)" as product
+  component "Cart & Orders\n(Client — sessionStorage)" as cart
+  component "Auth Pages\n(Login / Register)" as auth
+  component "Blog\n(SSG — WP posts)" as blog
+  component "Discounts\n(SSR — sale products,\ncoupons)" as discounts
+}
+
+package "Next.js API Routes (BFF Layer)" {
+  component "POST /api/auth/login\n(JWT via WP jwt-auth)" as loginRoute
+  component "POST /api/auth/register\n(WC Customers API)" as registerRoute
+  component "GET /api/search\n(WC Products search)" as searchRoute
+}
+
+package "WordPress + WooCommerce (Headless Backend)" {
+  component "WooCommerce REST API\n/wp-json/wc/v3/*\n— Products, Categories,\n  Coupons, Orders,\n  Customers" as wcApi
+  component "WordPress REST API\n/wp-json/wp/v2/*\n— Posts (Blog),\n  Media, Users" as wpApi
+  component "JWT Auth Plugin\n/wp-json/jwt-auth/v1/token\n— Login, Token Validate" as jwtPlugin
+}
+
+database "MySQL\n(WordPress DB)" as db
+
+cloud "Cloudinary\n(Image Storage & CDN)" as cloudinary
+
+' --- User interactions ---
+user --> home : Visit store
+user --> shop : Browse products
+user --> cart : Add to cart, checkout
+user --> auth : Login / Register
+user --> blog : Read articles
+
+admin --> wcApi : Manage products,\norders, coupons
+admin --> wpApi : Manage blog posts
+
+' --- Frontend → API Routes ---
+auth --> loginRoute : POST credentials
+auth --> registerRoute : POST new user
+shop --> searchRoute : GET search query
+
+' --- API Routes → WP/WC ---
+loginRoute --> jwtPlugin : Authenticate
+loginRoute --> wpApi : GET /users/me
+registerRoute --> wcApi : POST /customers
+registerRoute --> jwtPlugin : Auto-login
+searchRoute --> wcApi : GET /products?search=
+
+' --- Frontend → WP/WC directly (server components) ---
+home --> wcApi : GET featured products\n(SSG, revalidate 3600s)
+shop --> wcApi : GET products + categories\n(SSR)
+product --> wcApi : GET product by slug\n(ISR)
+blog --> wpApi : GET posts + media\n(SSG)
+discounts --> wcApi : GET on_sale + coupons\n(SSR)
+
+' --- WP/WC → DB ---
+wcApi --> db : Products, Orders,\nCustomers, Coupons
+wpApi --> db : Posts, Media,\nUsers, Options
+jwtPlugin --> db : Token validation
+
+' --- Images ---
+wcApi ..> cloudinary : Product image URLs
+wpApi ..> cloudinary : Blog image URLs
+
+@enduml
