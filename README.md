@@ -31,11 +31,11 @@ alt="Container Diagram" width="600">
 
 ### Data Flow
 <img src="documentation/diagrams/png/Headless%20E-Commerce%20Data%20Flow.png"
-alt="Data Flow" width="600">
+alt="Data Flow" width="400">
 
 ### Frontend Components
 <img src="documentation/diagrams/png/Headless%20E-Commerce%20Frontend%20Components.png"
-alt="Component Diagram" width="600">
+alt="Component Diagram">
 
 
 > PlantUML source files available in `documentation/diagrams/*.puml`
