@@ -26,7 +26,7 @@ A production-ready headless e-commerce platform that replaces the traditional Wo
 ## Architecture Diagrams
 
 ### System Context
-<img src="documentation/diagrams/png/" alt="System Context" width="600">
+<img src="documentation/diagrams/png/Headless E-Commerce System Context.png" alt="System Context" width="600">
 
 ### Container Diagram
 <img src="documentation/diagrams/png/Headless E-Commerce Container Diagram.png" alt="Container Diagram" width="600">
