@@ -1,6 +1,5 @@
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
+'use client'
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,7 +8,7 @@ import { useCart } from '@/context/Cartcontext';
 import { useFavourites } from '@/context/FavouritesContext';
 import type { WCProduct } from '@/lib/wordpress';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { addToCart } = useCart();
@@ -52,7 +51,6 @@ export default function SearchPage() {
     }
   };
 
-  // Первый поиск по query из URL
   useEffect(() => {
     if (initialQuery) doSearch(initialQuery);
   }, [initialQuery]);
@@ -73,7 +71,6 @@ export default function SearchPage() {
     setSearched(false);
     router.replace('/search', { scroll: false });
   };
-
 
   return (
     <div className="min-h-screen bg-white mt-40">
@@ -252,5 +249,12 @@ export default function SearchPage() {
 
       </div>
     </div>
+  );
+}
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white mt-40 flex items-center justify-center">Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

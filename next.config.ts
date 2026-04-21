@@ -6,6 +6,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const nextConfig: NextConfig = {
+
   images: {
     remotePatterns: [
       {
@@ -23,6 +24,7 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: process.env.NODE_ENV === 'development',
   },
+  
 };
 
 export default nextConfig;

@@ -12,7 +12,6 @@ export const defaultMetadata: Metadata = {
     'Discover fresh, natural and certified organic products for your health. Coom Endem offers eco-friendly solutions that care for your body and the planet.',
   keywords: ['organic', 'natural', 'health', 'eco-friendly', 'sustainable', 'wellness'],
   authors: [{ name: 'Coom Endem' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   openGraph: {
     type: 'website',
@@ -38,7 +37,10 @@ export const defaultMetadata: Metadata = {
     images: ['/og-image.jpg'],
   },
 };
-
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 // Метаданные для статических страниц
 export const pageMetadata = {
   login: {
